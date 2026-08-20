@@ -5,36 +5,36 @@ let googleMaps;
 const markers = [];
 
 // Initialize autocomplete on keyup/input for On keyup input field
-// export function initializeAutocomplete(inputElement) {
-//   if (!inputElement) {
-//     return null;
-//   }
+export function initializeAutocomplete(inputElement) {
+  if (!inputElement) {
+    return null;
+  }
 
-//   if (!googleMaps?.maps?.places?.Autocomplete) {
-//     console.error(
-//       'Google Places Autocomplete is not available.',
-//     );
-//     return null;
-//   }
+  if (!googleMaps?.maps?.places?.Autocomplete) {
+    console.error(
+      'Google Places Autocomplete is not available.',
+    );
+    return null;
+  }
 
-//   const autocomplete =
-//     new googleMaps.maps.places.Autocomplete(
-//       inputElement,
-//       {
-//         types: ['geocode'],
-//         componentRestrictions: {
-//           country: 'us',
-//         },
-//         fields: [
-//           'geometry',
-//           'formatted_address',
-//           'address_components',
-//         ],
-//       },
-//     );
+  const autocomplete =
+    new googleMaps.maps.places.Autocomplete(
+      inputElement,
+      {
+        types: ['geocode'],
+        componentRestrictions: {
+          country: 'us',
+        },
+        fields: [
+          'geometry',
+          'formatted_address',
+          'address_components',
+        ],
+      },
+    );
 
-//   return autocomplete;
-// }
+  return autocomplete;
+}
 
 
 export async function initializeMap(apiKey) {

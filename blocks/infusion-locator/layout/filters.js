@@ -1,5 +1,3 @@
-import renderDescription from './regex.js';
-
 function createFilterItem(
   form,
   sourceCheckboxId,
@@ -38,10 +36,7 @@ function createFilterItem(
   labelText.className = 'label-text';
 
   if (sourceLabel) {
-    labelText.innerHTML = renderDescription(
-      sourceLabel.textContent.trim(),
-    );
-
+    labelText.textContent = sourceLabel.textContent.trim();
     const infoIcon = labelText.querySelector('img');
 
     if (infoIcon) {
@@ -60,9 +55,7 @@ function createFilterItem(
   childInfo.className = 'child-info';
 
   if (sourceDescription) {
-    childInfo.innerHTML = renderDescription(
-      sourceDescription.textContent.trim(),
-    );
+    childInfo.textContent =  sourceDescription.textContent.trim()
   }
 
   item.append(

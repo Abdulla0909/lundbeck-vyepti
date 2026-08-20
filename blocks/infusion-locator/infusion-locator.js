@@ -1,10 +1,7 @@
 import { getSettings } from '../../scripts/config.js';
 import  createLayout  from './layout.js';
-// import { initializeAutocomplete, initializeMap } from './map.js'; 'THis should be in comment till wre get end point'
-import { initializeMap } from './map.js';
-import { getApiInfo, 
-    loadLocations,
- } from './api.js';
+import { initializeMap , initializeAutocomplete } from './map.js';
+import { getApiInfo, loadLocations } from './api.js';
 import registerEvents from './events.js';
 import { initCustomDropdown } from './dropdown.js';
 import getElements from './ui.js';
@@ -48,12 +45,6 @@ export default async function decorate(block) {
     settings,
   );
 
-   console.log(
-    'All locations loaded:',
-    allLocations,
-  );
-
-
    /*
    * 5. Create layout
    */
@@ -67,14 +58,15 @@ export default async function decorate(block) {
     apiInfo.apiKey,
   );
 
-
- //  It will in commented until we get the Proper End points
-  // const zipInput = block.querySelector('#form-zipcode');
-  // const autocomplete = initializeAutocomplete(zipInput);
+/*
+ * 7. Initialize ZIP autocomplete
+ */
+  const zipInput = block.querySelector('#form-zipcode');
+  initializeAutocomplete(zipInput);
 
 
   /*
- * 7. Get UI elements
+ * 8. Get UI elements
    */
   const ui = getElements(block);
 

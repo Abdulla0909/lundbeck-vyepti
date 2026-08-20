@@ -17,7 +17,7 @@ import { downloadResultsPdf } from './layout/pdf.js';
  * Apply the same filtering behaviour as the live site.
  */
 function applyFilters(results, filters) {
-  console.log('Facility sample:', results[0]);
+
   let filteredResults = [...results];
 
   /*
@@ -113,25 +113,7 @@ export default async function handleSearch({
   );
 
 
-  // Do not delete this commented line of code.
-  // It is for the autocomplete of search field
-  // in zipcode input.
 
-  // let selectedLocation = null;
-
-  // autocomplete?.addListener('place_changed', () => {
-  //   const place = autocomplete.getPlace();
-
-  //   if (!place.geometry?.location) {
-  //     selectedLocation = null;
-  //     return;
-  //   }
-
-  //   selectedLocation = {
-  //     lat: place.geometry.location.lat(),
-  //     lng: place.geometry.location.lng(),
-  //   };
-  // });
 
 
   try {
