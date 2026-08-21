@@ -32,18 +32,24 @@ export default async function decorate(block) {
    */
   const apiInfo = getApiInfo(block);
 
+  if (!apiInfo) {
+  console.error('API configuration is missing');
+  return;
+  }
+
    /*
    * 3. Get settings
    */
-  const settings = getSettings(block, apiInfo);
+  const settings = getSettings(block);
 
    /*
    * 4. Load all facility data on page load
    */
   const allLocations = await loadLocations(
-    apiInfo,
-    settings,
+    apiInfo
   );
+
+  console.log("ALL locations", allLocations)
 
    /*
    * 5. Create layout

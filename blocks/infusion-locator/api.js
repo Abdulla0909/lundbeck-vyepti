@@ -1,29 +1,47 @@
+import { parseBool } from '../../scripts/config.js';
+
 export function getApiInfo(block) {
+  const form = block.querySelector('form');
+
   const apiKeyElement = block.querySelector('#form-apikey');
-  const apiEndpointElement = block.querySelector('#form-endpoint');
-  const showInfusionCentersElement = block.querySelector('#form-infusion-center');
-  const showHcpDataElement = block.querySelector('#form-hcp-data');
-  const showFiltersElement = block.querySelector('#form-filter');
+  const showInfusionCentersElement =
+    block.querySelector('#form-infusion-center');
+  const showHcpDataElement =
+    block.querySelector('#form-hcp-data');
+  const showFiltersElement =
+    block.querySelector('#form-filter');
 
+  const apiEndpoint = form?.dataset.action?.trim();
 
-  if (!apiKeyElement || !apiEndpointElement) {
+  if (!apiKeyElement || !apiEndpoint) {
     return null;
   }
 
-  const apiKey = apiKeyElement.textContent;
-  const apiEndpoint = apiEndpointElement.textContent;
+  const apiKey = apiKeyElement.textContent.trim();
 
+  // From document to pass as API paramneter
   const showInfusionCenters =
-    showInfusionCentersElement?.textContent || '';
+    parseBool(
+      showInfusionCentersElement?.textContent,
+      true,
+    );
 
+  // From document to pass as API paramneter
   const showHcpData =
-    showHcpDataElement?.textContent || '';
+    parseBool(
+      showHcpDataElement?.textContent,
+      false,
+    );
 
+  // From document to pass as API paramneter
   const showFilters =
-    showFiltersElement?.textContent || '';
+    parseBool(
+      showFiltersElement?.textContent,
+      false,
+    );
+
   [
     apiKeyElement,
-    apiEndpointElement,
     showInfusionCentersElement,
     showHcpDataElement,
     showFiltersElement,
@@ -40,13 +58,12 @@ export function getApiInfo(block) {
   };
 }
 
-export async function loadLocations(apiInfo, settings) {
-
+export async function loadLocations(apiInfo) {
   try {
     const params = new URLSearchParams({
       actionType: 'getLocatorRecords',
-      showHcp: String(settings.showHcpData).toLowerCase(),
-      showIC: String(settings.showInfusionCenters).toLowerCase(),
+      showHcp: String(apiInfo.showHcpData).toLowerCase(),
+      showIC: String(apiInfo.showInfusionCenters).toLowerCase(),
     });
 
     const response = await fetch(
@@ -57,13 +74,11 @@ export async function loadLocations(apiInfo, settings) {
     );
 
     if (!response.ok) {
-      throw new Error(
-        `API returned ${response.status}`,
-      );
+      throw new Error(`API returned ${response.status}`);
     }
 
     const data = await response.json();
-    
+
     return data.result || data.providers || data || [];
   } catch (error) {
     console.error(
