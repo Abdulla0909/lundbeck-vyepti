@@ -362,7 +362,7 @@
   display: none;
 }
 
-.locator-filters .error {
+.locator-legend .error {
   text-align: center;
   color: var(--brand-rose);
   margin: 24px 0 0;
